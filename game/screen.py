@@ -1,7 +1,4 @@
-'''
-hahaha
-'''
-# import threading
+import threading
 import pygame as pg
 
 from chasper import chasper
@@ -12,12 +9,7 @@ from time import time
 # move_time = 0
 
 
-class scrn(chasper, snake):
-
-    '''
-    hahaha just a class for screen
-    '''
-    
+class scrn(chasper, snake):    
     pg.init()
     Color_set = [pg.image.load('res/green.jpeg'), pg.image.load('res/snake.png'), pg.image.load('res/green.jpeg'), pg.image.load('res/green.jpeg'), pg.image.load('res/rock.png')]
 

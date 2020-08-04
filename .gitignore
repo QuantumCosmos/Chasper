@@ -1,0 +1,7 @@
+*.pyc  
+*.mp4  
+test/  
+cash/  
+.vscode/
+*.db
+*/chasper.png

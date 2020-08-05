@@ -1,12 +1,8 @@
-import threading
 import pygame as pg
+from time import time
 
 from chasper import chasper
 from snake import snake
-from time import time
-
-# global move_time
-# move_time = 0
 
 
 class scrn(chasper, snake):    
@@ -42,12 +38,11 @@ class scrn(chasper, snake):
         self.out_grid = list(self.all_map[self.sub[0]:self.sub[1]+2, self.sub_2[0]:self.sub_2[1]+2])
 
 
-
     def grid_build(self, grd, h_x=0, h_y=0, a=0, b=0, mx=0, my=0):
         for i in range(self.grid_limit+a):
             for j in range(self.grid_limit+b):
                 scrn.map_build(self, i+h_x, j+h_y, grd, a, b, mx, my)
-                
+
 
     def map_build(self, i, j, grd, a=0, b=0, mx=0, my=0):
         l = i
@@ -79,48 +74,28 @@ class scrn(chasper, snake):
         self.screen.blit(image, (i*self.box, j*self.box))
 
     def event_monitor(self, keys, move_time):
-        # move_time = time()
         if(keys[pg.K_UP] and self.chasper_pos[1] > 0):
             chasper.move_chasper(self, 0, -1, 4)
-            move = time() - move_time
-            # print(move)
-            if move < 1:
-                snake.bite_dist(self)
-            self.move_time = time()
-            
 
         elif(keys[pg.K_DOWN] and self.chasper_pos[1] < disp[1]/self.box-1):
             chasper.move_chasper(self, 0, 1, 4)
-            move = time() - move_time
-            # print(move)
-            if move < 1:
-                snake.bite_dist(self)
-            self.move_time = time()
 
         elif(keys[pg.K_RIGHT] and self.chasper_pos[0] < disp[0]/self.box-1):
             chasper.move_chasper(self, 1, 0, 4) 
-            move = time() - move_time
-            # print(move)
-            if move < 1:
-                snake.bite_dist(self)
-            self.move_time = time()
 
         elif(keys[pg.K_LEFT] and self.chasper_pos[0] > 0):
             chasper.move_chasper(self, -1, 0, 4)
-            move = time() - move_time
-            # print(move)
-            if move < 1:
-                snake.bite_dist(self)
-            self.move_time = time()
+
 
     def stand_by(self):
-        game_exit = False
+        pg.display.flip()
+        self.run = True
         self.e = dict()
-        while not game_exit:
+        while self.run:
             keys = pg.key.get_pressed() 
 
             if pg.QUIT in [e.type for e in pg.event.get()]:
-                game_exit = True
+                self.run = False
                 
             elif keys[pg.K_SPACE]:
                 for i in self.out_grid:
@@ -133,13 +108,13 @@ class scrn(chasper, snake):
                 print([int(i/50) for i in pg.mouse.get_pos()])
 
             elif keys[pg.K_q]:
-                game_exit = True
+                self.run = False
 
             self.event_monitor(keys, self.move_time)
 
             for _ in pg.event.get():
                 pass
-            pg.display.flip()
+            pg.display.update()
         pg.quit()
 
 

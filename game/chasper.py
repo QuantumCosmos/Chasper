@@ -1,14 +1,29 @@
-from time import sleep
+import threading
 import pygame as pg
+from time import sleep, time
+
+from snake import snake
 
 
-class chasper:
+class chasper(snake):
+    move_delay = 0.1
+
+    def time_thrd(self):
+        try:
+            t.join()
+        except NameError:
+            pass
+        self.move_time = time()
+        t = threading.Thread(target=snake.bite_dist, args=(self, chasper.move_delay, ))
+        t.start()
+
 
     def build_chasper(self, pos, box_size, M='R', N='1'):
         self.chasper_pos = pos
         image = pg.image.load('res/move/'+M+'/'+M+N+'.png')
         image = pg.transform.scale(image, (self.box, self.box))
         self.screen.blit(image, (pos[0]*box_size, pos[1]*box_size))
+
 
     def move_chasper(self, m_x, m_y, f):
         if m_x == 1:
@@ -56,8 +71,8 @@ class chasper:
                     
                 chasper.build_chasper(self, pos, self.box, M, str(i))
                 pg.display.update()
-                
-                sleep(.1)
+                sleep(chasper.move_delay)
+            chasper.time_thrd(self)
         return False
 
         

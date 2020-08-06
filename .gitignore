@@ -5,5 +5,4 @@ cash/
 .vscode/
 *.db
 game/res/chasper.png
-*/adjust.py
-.gitignore 
+game/res/white.png

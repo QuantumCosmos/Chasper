@@ -30,7 +30,7 @@ class scrn(chasper, snake):
         self.chasper_pos = ()
         self.screen = pg.display.set_mode(disp)
         scrn.grid_build(self, self.grid)
-        chasper.build_chasper(self, (4, 4), box)
+        chasper.build_chasper(self, (5, 3), box)
         self.stand_by()
 
     def set_grids(self):
@@ -94,18 +94,21 @@ class scrn(chasper, snake):
         while self.run:
             keys = pg.key.get_pressed() 
 
-            if pg.QUIT in [e.type for e in pg.event.get()]:
-                self.run = False
+            for e in pg.event.get():
+                if pg.QUIT == e.type:
+                    self.run = False
+
+                elif pg.MOUSEBUTTONUP == e.type:
+                    print([int(i/50) for i in pg.mouse.get_pos()])
+                else:
+                    break
                 
-            elif keys[pg.K_SPACE]:
+            if keys[pg.K_SPACE]:
                 for i in self.out_grid:
                     print(i)
 
             elif keys[pg.K_p]:
                 print(self.chasper_pos)
-
-            elif pg.MOUSEBUTTONUP in [e.type for e in pg.event.get()]:
-                print([int(i/50) for i in pg.mouse.get_pos()])
 
             elif keys[pg.K_q]:
                 self.run = False

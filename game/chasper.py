@@ -20,9 +20,8 @@ class chasper(snake):
 
     def build_chasper(self, pos, box_size, M='R', N='1'):
         self.chasper_pos = pos
-        image = pg.image.load('res/move/'+M+'/'+M+N+'.png')
-        image = pg.transform.scale(image, (self.box, self.box))
-        self.screen.blit(image, (pos[0]*box_size, pos[1]*box_size))
+        self.chasper = M+N
+        snake.set_image(self, 'res/move/'+M+'/'+self.chasper+'.png', pos)
 
 
     def move_chasper(self, m_x, m_y, f):
@@ -74,6 +73,3 @@ class chasper(snake):
                 sleep(chasper.move_delay)
             chasper.time_thrd(self)
         return False
-
-        
-

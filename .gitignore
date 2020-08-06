@@ -6,3 +6,4 @@ cash/
 *.db
 game/res/chasper.png
 */adjust.py
+.gitignore 
